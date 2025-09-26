@@ -1,4 +1,3 @@
-// src/components/form/relatorios-create-form.tsx
 import styles from '@/app/relatorios/relatorios.module.css';
 import SubmitSuccessButton from '@/components/form/submit-success-button';
 
@@ -8,11 +7,16 @@ export default function RelatoriosCreateForm({
   action: (formData: FormData) => Promise<void>;
 }) {
   return (
-    <form action={action} className={styles.form}>
+    <form action={action} className={styles.form} data-testid="relatorio-form">
       <div className={styles.formRow}>
         <label className={styles.field}>
           Tipo
-          <select name="tipo" defaultValue="TORRE" className={styles.select}>
+          <select
+            name="tipo"
+            defaultValue="TORRE"
+            className={styles.select}
+            data-testid="tipo-select"
+          >
             <option value="TORRE">Torre</option>
             <option value="APARTAMENTO">Apartamento</option>
           </select>
@@ -27,6 +31,7 @@ export default function RelatoriosCreateForm({
             className={styles.input}
             placeholder="ex.: 123"
             required
+            data-testid="referencia-input"
           />
         </label>
 
@@ -37,6 +42,7 @@ export default function RelatoriosCreateForm({
             type="date"
             className={styles.input}
             required
+            data-testid="inicio-input"
           />
         </label>
 
@@ -47,6 +53,7 @@ export default function RelatoriosCreateForm({
             type="date"
             className={styles.input}
             required
+            data-testid="fim-input"
           />
         </label>
 
@@ -60,6 +67,7 @@ export default function RelatoriosCreateForm({
             className={styles.input}
             placeholder="ex.: 300.00"
             required
+            data-testid="consumo-input"
           />
         </label>
       </div>
