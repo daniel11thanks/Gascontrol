@@ -37,7 +37,7 @@
   filter: brightness(0.98);
 }
 
-/* Se for usar o formulário isolado numa página, um wrapper opcional */
+
 .wrapper {
   display: grid;
   place-items: center;

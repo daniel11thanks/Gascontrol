@@ -1,4 +1,3 @@
-// src/components/CSV/export-csv.tsx
 'use client';
 
 type RowGeneric = Record<string, unknown>;

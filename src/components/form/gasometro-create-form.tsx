@@ -1,4 +1,3 @@
-// src/components/form/gasometro-create-form.tsx
 import SubmitSuccessButton from '@/components/form/submit-success-button';
 import styles from '@/app/gasometros/gasometros.module.css';
 import type { Apartamento } from '@/query/data-apartamentos';
@@ -12,7 +11,6 @@ export default function GasometroCreateForm({
   apartamentos: Apartamento[];
   apartamentosUsados: Set<number>;
 }) {
-  // Wrapper server action-safe: use form action direto, mas previna IDs usados no lado do cliente
   async function actionGuard(formData: FormData) {
     'use server';
     // Esta função não pode ler apartamentosUsados (Set) porque é serialização server action,

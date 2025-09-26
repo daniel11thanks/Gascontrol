@@ -1,4 +1,3 @@
-// src/components/pagination/pagination.tsx
 'use client';
 
 import { useMemo, useState } from 'react';

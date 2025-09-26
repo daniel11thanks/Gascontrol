@@ -1,4 +1,3 @@
-// src/query/data-apartamentos.ts
 import { cookies } from 'next/headers';
 
 export type Apartamento = { id: number; nome?: string; numero?: string };

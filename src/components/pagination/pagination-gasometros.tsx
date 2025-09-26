@@ -1,4 +1,3 @@
-// src/components/pagination/pagination-gasometros.tsx
 'use client';
 
 import { useMemo, useState } from 'react';

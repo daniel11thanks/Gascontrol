@@ -1,4 +1,3 @@
-// src/components/form/delete-button.tsx
 'use client';
 import { useFormStatus } from 'react-dom';
 
