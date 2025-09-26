@@ -1,0 +1,72 @@
+/* Layout básico da página */
+
+
+.sectionTitle {
+  margin: 36px 0 20px;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Estilos reutilizados pelo formulário de criação */
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .formRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.input {
+  height: 36px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0 10px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonPrimary {
+  background: #60d39f;
+  color: #0b1b13;
+  border: 1px solid #55c893;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Opcional: botão excluir usado na lista se quiser reaproveitar a classe aqui também */
+.deleteBtn {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  height: 32px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.deleteBtn:hover {
+  filter: brightness(0.98);
+}
+
+.aviso {
+  font-size: 0.8rem;
+}
+
+

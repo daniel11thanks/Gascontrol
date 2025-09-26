@@ -1,0 +1,95 @@
+/* Container da lista com altura mínima para 5 cards (itemHeight + gap) * 5 - gap */
+.wrapper {
+  margin-top: 16px;
+}
+
+/* Grid estável */
+.list {
+  display: grid;
+  gap: 8px;               /* mantenha este valor para o cálculo da altura */
+  grid-auto-rows: 1fr;    /* linhas uniformes */
+}
+
+/* Card com altura estável (ajuste min-height ao seu conteúdo) */
+.item {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  min-height: 88px;       /* experimente 88–104px; suba se tiver 2 linhas de texto */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centraliza conteúdo para parecer uniforme */
+}
+
+/* Placeholder ocupa exatamente o mesmo espaço, sem borda visual */
+.placeholder {
+  border-color: transparent;
+  background: transparent;
+  /* evita colapso de altura por fonte diferente */
+  min-height: 88px;
+}
+
+/* Barra de paginação com altura fixa */
+.pagination {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0 4px;
+  min-height: 40px;        /* reserva espaço fixo da barra */
+}
+
+.navBtn,
+.pageBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;            /* altura fixa dos botões */
+  padding: 0 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  color: #0f172a;
+  margin-bottom: 40px;
+}
+
+.navBtn:hover,
+.pageBtn:hover {
+  filter: brightness(0.98);
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.pages {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.active {
+  background: #60d39f;
+  color: #0b1b13;
+  border-color: #55c893;
+  font-weight: 600;
+}
+
+.deleteBtn {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  height: 32px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.deleteBtn:hover {
+  filter: brightness(0.98);
+}
