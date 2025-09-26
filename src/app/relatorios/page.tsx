@@ -1,4 +1,3 @@
-// app/relatorios/page.tsx
 import styles from './relatorios.module.css';
 import { getRelatorios, type Relatorio } from '@/action/data';
 import { relatorioPost } from '@/action/relatorio-post';

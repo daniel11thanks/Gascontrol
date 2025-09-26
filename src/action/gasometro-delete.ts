@@ -1,4 +1,3 @@
-// src/actions/gasometro-delete.ts
 'use server';
 
 import { cookies } from 'next/headers';

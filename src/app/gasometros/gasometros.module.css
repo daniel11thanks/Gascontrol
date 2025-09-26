@@ -1,13 +1,9 @@
-/* Layout básico da página */
-
-
 .sectionTitle {
   margin: 36px 0 20px;
   font-size: 1.25rem;
   font-weight: 600;
 }
 
-/* Estilos reutilizados pelo formulário de criação */
 .form {
   display: grid;
   gap: 12px;
@@ -51,7 +47,7 @@
   cursor: pointer;
 }
 
-/* Opcional: botão excluir usado na lista se quiser reaproveitar a classe aqui também */
+
 .deleteBtn {
   background: #fee2e2;
   color: #991b1b;

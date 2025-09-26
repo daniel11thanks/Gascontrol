@@ -1,4 +1,3 @@
-// app/gasometros/page.tsx
 import styles from './gasometros.module.css';
 import { getGasometros } from '@/query/data-gasometros';
 import { getApartamentos } from '@/query/data-apartamentos';

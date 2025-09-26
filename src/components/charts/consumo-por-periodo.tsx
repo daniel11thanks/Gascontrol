@@ -37,14 +37,13 @@ export default function ConsumoPorPeriodo({
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={rows}
-          margin={{ top: 8, right: 12, bottom: 8, left: 4 }} // aproxima o chart da esquerda
+          margin={{ top: 8, right: 12, bottom: 8, left: 16 }}
           barCategoryGap="20%"
           barGap={8}
         >
           <CartesianGrid strokeDasharray="4 2" />
           <XAxis dataKey="periodo" />
-          <YAxis width={36} tickMargin={4} />{' '}
-          {/* reduz a largura do eixo e a margem dos ticks */}
+          <YAxis width={48} tickMargin={4} allowDecimals={false} />
           <Tooltip />
           <Legend />
           <Bar dataKey="consumo" name="Consumo" fill={cor} />

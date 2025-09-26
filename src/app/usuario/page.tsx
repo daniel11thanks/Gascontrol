@@ -1,4 +1,3 @@
-// app/usuario/page.tsx
 import styles from './usuario.module.css';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -6,9 +5,8 @@ import { redirect } from 'next/navigation';
 async function logout() {
   'use server';
   const jar = await cookies();
-  // Remove o cookie de autenticação
+
   jar.delete('basic');
-  // Redireciona para login
   redirect('/login');
 }
 

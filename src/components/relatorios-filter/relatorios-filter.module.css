@@ -24,12 +24,12 @@
 }
 
 
-.select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
 
+.select {
+  appearance: menulist;
+  -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+}
 
 .input[type="date"] {
   min-width: 200px;
