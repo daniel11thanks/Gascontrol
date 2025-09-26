@@ -1,4 +1,3 @@
-// app/(layout)/header.tsx
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './header.module.css';

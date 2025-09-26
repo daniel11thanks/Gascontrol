@@ -20,7 +20,6 @@ test('Registro de leitura e exportação CSV', async ({ page }) => {
   //    data-testid="tipo-select" | "referencia-input" | "inicio-input" | "fim-input" | "consumo-input"
   const form = page.getByTestId('relatorio-form');
 
-  // Preencher com os valores especificados
   await form.getByTestId('tipo-select').selectOption({ value: 'TORRE' });
   await form.getByTestId('referencia-input').fill('10');
   await form.getByTestId('inicio-input').fill('2025-08-10'); // 10 de agosto (formato ISO)
@@ -37,7 +36,6 @@ test('Registro de leitura e exportação CSV', async ({ page }) => {
   expect(dialog.message()).toMatch(/Relatório incluso com sucesso/i);
   await dialog.accept();
 
-  // 5) Opcional: se houver redirect após o alert, aguarde; senão, siga em frente
   await Promise.race([
     page.waitForURL('**/relatorios', { timeout: 5000 }),
     page
