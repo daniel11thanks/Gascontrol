@@ -8,7 +8,7 @@ export async function cadastrosMultiPost(formData: FormData) {
   const basic = (await cookies()).get('basic')?.value;
   if (!basic) throw new Error('Não autenticado.');
 
-  // 1. Condomínio (mesma lógica anterior)
+  // 1. Condomínio
   const condValue = String(formData.get('condominio') || '');
   let condId: number;
   if (condValue === '__new__' || isNaN(Number(condValue))) {
@@ -35,16 +35,17 @@ export async function cadastrosMultiPost(formData: FormData) {
   }
 
   // 2. Torre
+  const creatingTorre = formData.get('creating_torre') === 'true';
   const torreValue = String(formData.get('torre') || '');
+  const torreNumero = String(formData.get('torre_numero') || '').trim();
   const torreIdent = String(formData.get('torre_identificacao') || '').trim();
   let torreId: number;
-  if (/^\d+$/.test(torreValue)) {
-    // Selecionou torre existente
+
+  if (!creatingTorre && /^\d+$/.test(torreValue)) {
     torreId = Number(torreValue);
-  } else if (torreIdent) {
-    // Criar nova torre
+  } else if (creatingTorre && torreNumero && torreIdent) {
     const torrePayload = {
-      numero: torreIdent,
+      numero: torreNumero,
       identificacao: torreIdent,
       condominio: condId,
     };
@@ -65,12 +66,13 @@ export async function cadastrosMultiPost(formData: FormData) {
       torreId = (await torreRes.json()).id;
     }
   } else {
-    // Nenhuma torre selecionada ou criada
-    console.warn('Nenhuma torre informada; pulando criação de apartamento.');
+    console.warn(
+      'Nenhuma torre informada ou modo criação não ativado; pulando criação de apartamento.',
+    );
     torreId = NaN;
   }
 
-  // 3. Apartamento (só se torreId válido)
+  // 3. Apartamento
   let aptId: number = NaN;
   if (!isNaN(torreId)) {
     const aptPayload = {
@@ -117,13 +119,16 @@ export async function cadastrosMultiPost(formData: FormData) {
     }
   }
 
-  // 5. Gasômetro
+  // 5. Gasômetro + Leitura usando código em vez de ID
   if (!isNaN(aptId)) {
+    const gasCodigoInput = String(formData.get('gasometro') || '');
     const gasPayload = {
-      codigo: String(formData.get('gasometro') || ''),
+      codigo: gasCodigoInput,
       apartamento: aptId,
     };
     let gasId: number;
+    let gasCodigo: string = gasCodigoInput;
+
     const gasRes = await fetch('http://localhost:8000/api/gasometros/', {
       method: 'POST',
       headers: {
@@ -138,7 +143,7 @@ export async function cadastrosMultiPost(formData: FormData) {
       if (txt.includes('already exists')) {
         const searchRes = await fetch(
           `http://localhost:8000/api/gasometros/?codigo=${encodeURIComponent(
-            gasPayload.codigo,
+            gasCodigoInput,
           )}`,
           { headers: { Authorization: `Basic ${basic}` }, cache: 'no-store' },
         );
@@ -147,6 +152,7 @@ export async function cadastrosMultiPost(formData: FormData) {
           Array.isArray(data.results) && data.results.length
             ? data.results[0].id
             : NaN;
+        gasCodigo = data.results[0]?.codigo || gasCodigoInput;
       } else {
         throw new Error(`Erro ao criar gasômetro: ${txt}`);
       }
@@ -154,13 +160,12 @@ export async function cadastrosMultiPost(formData: FormData) {
       gasId = (await gasRes.json()).id;
     }
 
-    // 6. Leitura
     if (!isNaN(gasId)) {
       const leituraPayload = {
         data_leitura: String(formData.get('data_leitura') || null),
         consumo_m3: Number(formData.get('consumo_m3')) || 0,
         periodicidade: String(formData.get('periodicidade') || ''),
-        gasometro: gasId,
+        gasometro: gasCodigo,
       };
       const leituraRes = await fetch('http://localhost:8000/api/leituras/', {
         method: 'POST',

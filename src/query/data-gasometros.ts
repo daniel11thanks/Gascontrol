@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export type Gasometro = {
+  id: string;
   codigo: string;
   apartamento: number;
 };

@@ -1,7 +1,7 @@
 // src/components/form/ConnectedSelect.tsx
 'use client';
 
-import { useState, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import styles from '@/app/cadastros/cadastros.module.css';
 
 type Option = { id: string; label: string };
@@ -14,16 +14,23 @@ export default function ConnectedSelect({
   value,
   onChange,
   onCreateModeChange,
+  resetTrigger, // novo prop
 }: {
   name: string;
   options: Option[];
   placeholder: string;
   newPlaceholder: string;
-  value: string; // adicionado
+  value: string;
   onChange: (value: string) => void;
   onCreateModeChange: (creating: boolean) => void;
+  resetTrigger: number; // contador para reset
 }) {
   const [creating, setCreating] = useState(false);
+
+  useEffect(() => {
+    setCreating(false);
+    onCreateModeChange(false);
+  }, [resetTrigger]); // reseta criação ao mudar trigger
 
   function handleSelect(e: ChangeEvent<HTMLSelectElement>) {
     const v = e.target.value;

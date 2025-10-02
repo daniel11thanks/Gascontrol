@@ -26,6 +26,7 @@ export default function UnifiedCreateForm({
   const [state, setState] = useState<Record<string, string>>({});
   const [creatingCondominio, setCreatingCondominio] = useState(false);
   const [creatingTorre, setCreatingTorre] = useState(false);
+  const [resetTrigger, setResetTrigger] = useState(0);
 
   function setField(name: string, value: string) {
     setState((s) => ({ ...s, [name]: value }));
@@ -34,17 +35,18 @@ export default function UnifiedCreateForm({
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const fd = new FormData();
+    fd.set('creating_torre', String(creatingTorre));
     Object.entries(state).forEach(([k, v]) => fd.set(k, v));
     await onSubmit(fd);
     setState({});
     setCreatingCondominio(false);
     setCreatingTorre(false);
+    setResetTrigger((t) => t + 1);
   }
-
-  const noop = (_: boolean) => {};
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
+      {/* Condomínio */}
       <label className={styles.field}>
         Condomínio
         <ConnectedSelect
@@ -55,6 +57,7 @@ export default function UnifiedCreateForm({
           value={state.condominio || ''}
           onChange={(v) => setField('condominio', v)}
           onCreateModeChange={setCreatingCondominio}
+          resetTrigger={resetTrigger}
         />
       </label>
       {creatingCondominio && (
@@ -71,32 +74,52 @@ export default function UnifiedCreateForm({
         </label>
       )}
 
-      <label className={styles.field}>
-        Torre
-        <ConnectedSelect
-          name="torre"
-          options={torres.map((t) => ({ id: t.id, label: t.numero || '' }))}
-          placeholder="Selecione torre"
-          newPlaceholder="Número da torre"
-          value={state.torre || ''}
-          onChange={(v) => setField('torre', v)}
-          onCreateModeChange={setCreatingTorre}
-        />
-      </label>
-      {creatingTorre && (
+      {/* Torre */}
+      {creatingTorre ? (
+        <>
+          <label className={styles.field}>
+            Número da torre
+            <input
+              name="torre_numero"
+              className={styles.input}
+              value={state.torre_numero || ''}
+              onChange={(e) => setField('torre_numero', e.target.value)}
+              placeholder="Ex.: 2a"
+              required
+            />
+          </label>
+          <label className={styles.field}>
+            Identificação da torre
+            <input
+              name="torre_identificacao"
+              className={styles.input}
+              value={state.torre_identificacao || ''}
+              onChange={(e) => setField('torre_identificacao', e.target.value)}
+              placeholder="Ex.: Torre A"
+              required
+            />
+          </label>
+        </>
+      ) : (
         <label className={styles.field}>
-          Identificação da torre
-          <input
-            name="torre_identificacao"
-            className={styles.input}
-            value={state.torre_identificacao || ''}
-            onChange={(e) => setField('torre_identificacao', e.target.value)}
-            placeholder="Identificação da torre"
-            required
+          Torre
+          <ConnectedSelect
+            name="torre"
+            options={torres.map((t) => ({
+              id: t.id,
+              label: t.identificacao || '',
+            }))}
+            placeholder="Selecione torre"
+            newPlaceholder="Número da torre"
+            value={state.torre || ''}
+            onChange={(v) => setField('torre', v)}
+            onCreateModeChange={setCreatingTorre}
+            resetTrigger={resetTrigger}
           />
         </label>
       )}
 
+      {/* Apartamento */}
       <label className={styles.field}>
         Apartamento
         <ConnectedSelect
@@ -109,10 +132,12 @@ export default function UnifiedCreateForm({
           newPlaceholder="Número do apartamento"
           value={state.apartamento || ''}
           onChange={(v) => setField('apartamento', v)}
-          onCreateModeChange={noop}
+          onCreateModeChange={() => {}}
+          resetTrigger={resetTrigger}
         />
       </label>
 
+      {/* Gasômetro */}
       <label className={styles.field}>
         Gasômetro
         <ConnectedSelect
@@ -125,10 +150,12 @@ export default function UnifiedCreateForm({
           newPlaceholder="Número do gasômetro"
           value={state.gasometro || ''}
           onChange={(v) => setField('gasometro', v)}
-          onCreateModeChange={noop}
+          onCreateModeChange={() => {}}
+          resetTrigger={resetTrigger}
         />
       </label>
 
+      {/* Pessoa */}
       <label className={styles.field}>
         Nome da pessoa
         <input
@@ -159,6 +186,7 @@ export default function UnifiedCreateForm({
         </select>
       </label>
 
+      {/* Leitura */}
       <label className={styles.field}>
         Data da leitura
         <input

@@ -51,7 +51,7 @@ export default async function CadastrosPage() {
         />
       </div>
 
-      {/* Condomínios */}
+      {/* Condomínios 
       <div className={styles.section}>
         <h2 className={styles.sectionTitle}>Adicionar condomínio</h2>
         <CondominioCreateForm action={condominioPost} />
@@ -66,8 +66,8 @@ export default async function CadastrosPage() {
           />
         )}
       </div>
-
-      {/* Torres */}
+*/}
+      {/* Torres 
       <div className={styles.section}>
         <h2 className={styles.sectionTitle}>Adicionar torre</h2>
         <TorreCreateForm action={torrePost} condominios={condominios} />
@@ -82,16 +82,9 @@ export default async function CadastrosPage() {
           />
         )}
       </div>
-
-      {/* Gasômetros 
+*/}
+      {/* Gasômetros */}
       <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Adicionar gasômetro</h2>
-        <GasometroCreateForm
-          action={gasometroPost}
-          apartamentos={apartamentos}
-          apartamentosUsados={usados}
-        />
-
         <h2 className={styles.sectionTitle}>Lista de gasômetros</h2>
         {gasometros.length === 0 && <p>Não há gasômetros cadastrados.</p>}
         {gasometros.length > 0 && (
@@ -102,7 +95,6 @@ export default async function CadastrosPage() {
           />
         )}
       </div>
-      */}
     </section>
   );
 }
