@@ -1,5 +1,5 @@
 import SubmitSuccessButton from '@/components/form/submit-success-button';
-import styles from '@/app/gasometros/gasometros.module.css';
+import styles from '@/app/cadastros/cadastros.module.css';
 import type { Apartamento } from '@/query/data-apartamentos';
 
 export default function GasometroCreateForm({
@@ -13,9 +13,6 @@ export default function GasometroCreateForm({
 }) {
   async function actionGuard(formData: FormData) {
     'use server';
-    // Esta função não pode ler apartamentosUsados (Set) porque é serialização server action,
-    // então a validação client-side é a primeira barreira; no servidor, a API ainda valida.
-    // Encaminhe direto para a action real
     return action(formData);
   }
 

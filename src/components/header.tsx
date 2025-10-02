@@ -39,8 +39,8 @@ export default async function Header() {
               </Link>
             </li>
             <li>
-              <Link href="/gasometros" className={styles.centerLink}>
-                Gasômetros
+              <Link href="/cadastros" className={styles.centerLink}>
+                Cadastros
               </Link>
             </li>
           </ul>

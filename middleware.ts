@@ -1,8 +1,8 @@
-// middleware.ts (na raiz)
+// middleware.ts
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const PROTECTED_PREFIXES = ['/relatorios', '/gasometros', '/usuario'];
+const PROTECTED_PREFIXES = ['/relatorios', '/cadastros', '/usuario'];
 const STATIC_PREFIXES = ['/_next', '/assets', '/favicon.ico'];
 
 function startsWithAny(pathname: string, prefixes: string[]) {
@@ -11,8 +11,6 @@ function startsWithAny(pathname: string, prefixes: string[]) {
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-
-  // console.log("MW hit:", pathname); // debug opcional
 
   // Permitir arquivos estáticos
   if (startsWithAny(pathname, STATIC_PREFIXES)) {
@@ -45,7 +43,7 @@ export function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     '/relatorios/:path*',
-    '/gasometros/:path*',
+    '/cadastros/:path*',
     '/usuario/:path*',
     '/login',
     '/((?!_next/static|_next/image|favicon.ico|assets/).*)',
